@@ -54,35 +54,36 @@ function SkipCard() {
   }
 
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="py-4 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
         {skips.map((skip) => (
           <div
             key={skip.id}
-            className="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 bg-white"
+            className={`border rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 bg-white ${
+              selectedCardId === skip.id ? "border-blue-500" : "border-gray-300"
+            }`}
           >
-            <img src="./card-image.jpg" alt="Skip" />
-            <h3 className="text-xl font-semibold">
-              Size: {skip.size} cubic yards
+            <img src="./card-image.jpg" alt="Skip" className="rounded-lg" />
+            <h3 className="text-xl font-semibold pt-4">
+              {skip.size} Yards Skip
             </h3>
+
             <p className="text-gray-700">
-              Price:{" "}
+              {skip.hire_period_days} days hire period
+            </p>
+            <p className="text-gray-700">
               {skip.price_before_vat !== null ? (
                 <span className="font-bold text-blue-600">
-                  £{skip.price_before_vat.toFixed(2)}
+                  £{skip.price_before_vat.toFixed(2)} per week
                 </span>
               ) : (
                 <span className="text-gray-500">Price not available</span>
               )}
             </p>
-            <p className="text-gray-700">
-              Hire Period: {skip.hire_period_days} days
-            </p>
 
-            {/* 도로 위 허용 여부에 따른 UI 변경 */}
-            <p
+            {/* <p
               className={`mt-2 font-semibold ${
-                skip.allowed_on_road ? "text-green-600" : "text-red-500"
+                skip.allowed_on_road ? "text-blue-600" : "text-red-500"
               }`}
             >
               {skip.allowed_on_road
@@ -90,32 +91,81 @@ function SkipCard() {
                 : "❌ Not Allowed on Road"}
             </p>
 
-            {/* 무거운 폐기물 허용 여부 */}
             <p
               className={`mt-1 font-semibold ${
-                skip.allows_heavy_waste ? "text-green-600" : "text-red-500"
+                skip.allows_heavy_waste ? "text-blue-600" : "text-red-500"
               }`}
             >
               {skip.allows_heavy_waste
                 ? "✔️ Heavy Waste Allowed"
                 : "❌ No Heavy Waste"}
-            </p>
+            </p> */}
 
-            {/* 선택 버튼 */}
             <button
-              className={`mt-4 px-4 py-2 rounded ${
+              className={`mt-4 rounded-xl w-full py-2 ${
                 selectedCardId === skip.id
-                  ? "bg-green-500 text-white cursor-default"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
+                  ? "bg-blue-600 text-white cursor-default"
+                  : "bg-blue-600 text-white hover:bg-blue-600"
               }`}
-              disabled={selectedCardId !== null && selectedCardId !== skip.id}
-              onClick={() => setSelectedCardId(skip.id)}
+              onClick={() => {
+                // 현재 선택된 카드가 다른 카드라면 그 카드를 선택하고, 그렇지 않으면 비선택 상태로 바꿉니다.
+                setSelectedCardId(selectedCardId === skip.id ? null : skip.id);
+              }}
             >
               {selectedCardId === skip.id ? "Selected" : "Select This Skip"}
             </button>
           </div>
         ))}
       </div>
+
+      {/* 선택된 카드의 합계 영역 (Sticky) */}
+      {selectedCardId !== null && (
+        <div className="sticky bottom-0 bg-white backdrop-blur-md border-b border-gray-300 p-4 shadow-lg z-10">
+          <h3 className="text-xl font-semibold">Selected Skip Summary</h3>
+          <div className="mt-2">
+            <p>
+              <strong>Size:</strong>{" "}
+              {skips.find((skip) => skip.id === selectedCardId)?.size} Yards
+            </p>
+            
+            <p>
+              <strong>Total Price (before VAT):</strong>{" "}
+              {skips.find((skip) => skip.id === selectedCardId)
+                ?.price_before_vat !== null
+                ? `£${(
+                    skips.find((skip) => skip.id === selectedCardId)
+                      ?.price_before_vat || 0
+                  ).toFixed(2)}`
+                : "Price not available"}
+            </p>
+            <p>
+              <strong>VAT:</strong>{" "}
+              {skips.find((skip) => skip.id === selectedCardId)?.vat !== null
+                ? `£${(
+                    skips.find((skip) => skip.id === selectedCardId)?.vat || 0
+                  ).toFixed(2)}`
+                : "VAT not available"}
+            </p>
+            <p className="mt-2 font-bold text-blue-600">
+              <strong>Total (including VAT):</strong> £
+              {selectedCardId !== null &&
+              skips.find((skip) => skip.id === selectedCardId)?.price_before_vat
+                ? (skips.find((skip) => skip.id === selectedCardId)
+                    ?.price_before_vat || 0) +
+                  (skips.find((skip) => skip.id === selectedCardId)?.vat || 0)
+                : "Price not available"}
+            </p>
+            <div className="flex gap-6">
+              <button className="mt-4 rounded-xl w-full bg-gray-500 text-white py-2">
+                Back
+              </button>
+              <button className="mt-4 rounded-xl w-full bg-blue-600 text-white py-2">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
