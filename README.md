@@ -1,54 +1,13 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Light Mode Instead of Dark Mode
+For this redesign, I decided to apply a light mode instead of dark mode. The reason behind this choice is to align with the company's image, which I feel would benefit from a brighter, more environmentally-friendly feel. Light modes tend to convey a sense of clarity, openness, and freshness, which are attributes I wanted to emphasize in this project. Additionally, I chose blue as the primary color to give a clean, transparent, and professional look, further enhancing the overall user experience. I believe this choice helps communicate trustworthiness and professionalism, which are key to the company’s brand.
 
-Currently, two official plugins are available:
+2. Responsive Layout for Mobile Devices
+While reviewing the design, I noticed that on mobile devices, the step navigation at the top of the page was causing horizontal scrolling due to the content being too wide. As a result, only two steps were visible, which could affect the user's experience. To address this issue, I rewrote the code to make the navigation steps responsive. Now, the number of visible steps adapts dynamically based on the device screen size, ensuring a smoother and more user-friendly experience across mobile, tablet, and desktop platforms.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+3. Improved Card Selection Summary
+I also improved the user experience by adding a Summary section at the bottom of the screen. Once a user selects a card, the relevant data will be displayed, providing an at-a-glance overview of the selected card. This makes it easier for customers to review their choices. Additionally, I included a close icon in the summary section for users who might find the summary obstructive. They can now easily close it to focus on other content, making the interface more flexible and user-friendly.
 
-## Expanding the ESLint configuration
+License
+This project is licensed under the MIT License. However, please note that while this redesign is submitted for your review as part of the coding challenge, I request that any usage of the code outside of this challenge context, especially for commercial purposes, be subject to further agreement. The code is shared under the MIT License for educational and testing purposes only.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
