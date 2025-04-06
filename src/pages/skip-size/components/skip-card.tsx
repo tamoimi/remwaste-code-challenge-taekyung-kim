@@ -20,7 +20,7 @@ function SkipCard() {
 
   if (isLoading) {
     return (
-      <div className="py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8">
+      <div className="py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8">
         {[...Array(skeletonCount)].map((_, index) => (
           <LoadingSkeletonCard key={index} />
         ))}
@@ -46,14 +46,14 @@ function SkipCard() {
   const selectedSkip = skips.find((skip) => skip.id === selectedCardId);
 
   return (
-    <div className="">
+    <div className="pb-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8 text-left">
         {skips.map((skip) => (
           <div
             key={skip.id}
-            className={`border-1 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 bg-white hover:bg-neutral-200 ${
+            className={`border-1 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200  hover:bg-neutral-200 ${
               selectedCardId === skip.id
-                ? "border-blue-500 border-2"
+                ? "border-blue-500 border-2 bg-neutral-200" 
                 : "border-neutral-300"
             } `}
           >
@@ -100,24 +100,26 @@ function SkipCard() {
           }}
         >
           <div className="flex justify-between items-center">
-            <h3 className="lg:text-xl font-semibold">Selected Skip Summary</h3>
+            <h3 className="text-md md:text-xl font-semibold">
+              Selected Skip Summary
+            </h3>
 
             <HiOutlineX onClick={() => setSelectedCardId(null)} size={20} />
           </div>
           <div className="mt-2">
-            <p className="text-sm md:text-lg">
+            <p className="text-sm md:text-base">
               <strong>Size:</strong> {selectedSkip.size} Yards
             </p>
-            <p className="text-sm md:text-lg">
+            <p className="text-sm md:text-base">
               <strong>Total Price (before VAT):</strong>{" "}
               {selectedSkip.price_before_vat !== null
                 ? `£${selectedSkip.price_before_vat.toFixed(2)}`
                 : "Price not available"}
             </p>
-            <p className="text-sm md:text-lg">
+            <p className="text-sm md:text-base">
               <strong>VAT:</strong> £{selectedSkip.vat.toFixed(2)}
             </p>
-            <p className=" text-blue-600 text-sm md:text-lg">
+            <p className=" text-blue-600 text-sm md:text-base">
               <strong>Total (including VAT):</strong> £
               {(
                 (selectedSkip.price_before_vat || 0) + selectedSkip.vat

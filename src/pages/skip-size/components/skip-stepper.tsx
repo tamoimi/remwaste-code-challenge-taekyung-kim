@@ -10,39 +10,39 @@ import {
 
 const steps = [
   {
-    icon: <HiOutlineLocationMarker size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineLocationMarker />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Postcode",
     completed: true,
   },
   {
-    icon: <HiOutlineTrash size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineTrash />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Waste Type",
     completed: true,
   },
   {
-    icon: <HiOutlineTruck size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineTruck />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Select Skip",
     completed: false,
     current: true,
   },
   {
-    icon: <HiOutlineShieldCheck size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineShieldCheck />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Permit Check",
     completed: false,
   },
   {
-    icon: <HiOutlineCalendar size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineCalendar />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Choose Date",
     completed: false,
   },
   {
-    icon: <HiOutlineCreditCard size={20} />,
-    checkedIcon: <HiOutlineCheck size={20} />,
+    icon: <HiOutlineCreditCard />,
+    checkedIcon: <HiOutlineCheck />,
     label: "Payment",
     completed: false,
   },
@@ -60,10 +60,10 @@ function SkipStepper() {
                 flex 
                 ${index < steps.length - 1 ? "w-full" : ""} 
                 relative 
-                ${step.completed ? "text-blue-600" : "text-gray-900"}
+                ${step.completed ? "text-blue-600" : "text-gray-900"} 
                 ${
                   index < steps.length - 1
-                    ? `after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4 ${
+                    ? `after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-6 ${
                         step.completed || (index === 0 && steps[1].completed)
                           ? "after:bg-blue-600"
                           : "after:bg-gray-200"
@@ -76,6 +76,7 @@ function SkipStepper() {
                 <span
                   className={`
                     w-6 h-6 
+                    sm:w-8 sm:h-8 
                     lg:w-10 lg:h-10 
                     rounded-full 
                     flex justify-center items-center 
@@ -90,9 +91,17 @@ function SkipStepper() {
                     }
                   `}
                 >
-                  {step.completed ? step.checkedIcon : step.icon}
+                  {step.completed ? (
+                    <span className="text-sm sm:text-base md:text-lg lg:text-xl">
+                      {step.checkedIcon}
+                    </span>
+                  ) : (
+                    <span className="text-sm sm:text-base md:text-lg lg:text-xl">
+                      {step.icon}
+                    </span>
+                  )}
                 </span>
-                {/* 모바일에서는 텍스트 숨기고 데스크탑에서만 표시 */}
+
                 <span className="hidden sm:inline">{step.label}</span>
               </div>
             </li>
